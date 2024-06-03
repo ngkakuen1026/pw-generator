@@ -1,0 +1,13 @@
+{
+    "header": {
+
+    },
+    "body": {
+        "h1": "Random Password Generator",
+        "h2": "Password generated:",
+        "h3": "Password Length: ",
+        "copyMessage": "Password copied to clipboard!",
+        "buttonMessage": "Generate Password",
+        "checkbox": "Special Character"
+    }
+}

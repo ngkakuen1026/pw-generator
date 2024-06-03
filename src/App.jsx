@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MdContentCopy, MdGTranslate, MdNightlight, MdSunny } from "react-icons/md";
+
 
 function App() {
   const [passwordLength, setPasswordLength] = useState(8);
@@ -70,16 +72,29 @@ function App() {
     setIsNightTheme(!isNightTheme);
   };
 
+  const [currentLanguage, setCurrentLanguage] = useState("en");
+
+  const [t, i18n] = useTranslation("global");
+  const handleLanguageChange = (lang) => {
+    i18n.changeLanguage(lang);
+    setCurrentLanguage(lang);
+  };
+
+  const toggleLanguage = () => {
+    const newLanguage = currentLanguage === "en" ? "zh" : "en";
+    handleLanguageChange(newLanguage);
+  };
+  
   return (
-    <div className={`pw-app py-10 ${isNightTheme ? 'bg-dark-mode' : 'bg-white'}`}>
+    <div className={`pw-app py-10 min-h-screen ${isNightTheme ? 'bg-dark-mode' : 'bg-white'}`}>
       <div className='mininav pb-10'>
-        <MdSunny className={`w-10 h-10 ml-8 inline-block cursor-pointer ${isNightTheme ? 'hidden' : ''}`} onClick={toggleTheme} />
-        <MdNightlight className={`w-10 h-10 ml-8 inline-block cursor-pointer ${isNightTheme ? 'fill-white' : 'hidden'}`} onClick={toggleTheme} />
-        <MdGTranslate className={`w-10 h-10 ml-8 inline-block cursor-pointer ${isNightTheme ? 'fill-white' : 'fill-black'}`} />
+        <MdSunny className={`w-10 h-10 ml-8 inline-block cursor-pointer ${isNightTheme ? 'text-white' : 'hidden'}`} onClick={toggleTheme} />
+        <MdNightlight className={`w-10 h-10 ml-8 inline-block cursor-pointer ${isNightTheme ? 'hidden' : ''}`} onClick={toggleTheme} />
+        <MdGTranslate className={`w-10 h-10 ml-8 inline-block cursor-pointer ${isNightTheme ? 'fill-white' : 'fill-black'}`} onClick={toggleLanguage} />
       </div>
-      <h1 className={`text-4xl text-center ${isNightTheme ? 'text-white' : 'text-black'}`}>Random Password Generator</h1>
+      <h1 className={`text-4xl text-center ${isNightTheme ? 'text-white' : 'text-black'}`}>{t("body.h1")}</h1>
       <div className="pw-field text-center m-10">
-        <h2 className={`text-4xl text-center ${isNightTheme ? 'text-white' : 'text-black'}`}>Password generated:</h2>
+        <h2 className={`text-4xl text-center ${isNightTheme ? 'text-white' : 'text-black'}`}>{t("body.h2")}</h2>
         <h2 className={`text-4xl text-center pt-5 font-bold ${isNightTheme ? 'text-white' : 'text-black'}`}>
           {generatedPassword}
           {generatedPassword && (
@@ -87,7 +102,7 @@ function App() {
           )}
         </h2>
         {isCopied && (
-          <p className={`text-lg mt-2 ${isNightTheme? 'text-gray-200' : 'text-cyan-400'}`}>Password copied to clipboard!</p>
+          <p className={`text-lg mt-2 ${isNightTheme? 'text-gray-200' : 'text-cyan-400'}`}>{t("body.copyMessage")}</p>
         )}
       </div>
 
@@ -126,12 +141,12 @@ function App() {
             checked={includeSpecialCharacter}
             onChange={handleSpecialCharacterChange}
           />
-          <span className={`pl-1 text-2xl ${isNightTheme ? 'text-white' : 'text-black'}`}>Special Character</span>
+          <span className={`pl-1 text-2xl ${isNightTheme ? 'text-white' : 'text-black'}`}>{t("body.checkbox")}</span>
         </div>
       </div>
 
       <div className="flex justify-center pt-5">
-        <span className={`text-2xl ${isNightTheme ? 'text-white' : 'text-black'}`}>Password Length: {passwordLength}</span>
+        <span className={`text-2xl ${isNightTheme ? 'text-white' : 'text-black'}`}>{t("body.h3")} {passwordLength}</span>
       </div>
       <div className="flex items-center justify-center pt-5">
         <input
@@ -150,7 +165,7 @@ function App() {
           className={`px-6 py-3 hover:opacity-50 rounded-lg text-xl font-semibold ${isNightTheme ? 'bg-blue-200 text-black' : 'bg-blue-500 text-white'}`}
           onClick={generatePassword}
         >
-          Generate Password
+          {t("body.buttonMessage")}
         </button>
       </div>
     </div>
