@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MdContentCopy } from "react-icons/md";
+import { MdContentCopy, MdGTranslate, MdNightlight, MdSunny } from "react-icons/md";
 
 function App() {
   const [passwordLength, setPasswordLength] = useState(8);
@@ -11,6 +11,8 @@ function App() {
   
   const [generatedPassword, setGeneratedPassword] = useState('');
   const [isCopied, setIsCopied] = useState(false);
+
+  const [isNightTheme, setIsNightTheme] = useState(false);
 
   const handlePasswordLengthChange = (e) => {
     setPasswordLength(e.target.value);
@@ -64,20 +66,28 @@ function App() {
     setIsCopied(true);
   };
 
-  return (
-    <div className="pw-app p-10">
-      <h1 className="text-4xl text-center font-light">Random Password Generator</h1>
+  const toggleTheme = () => {
+    setIsNightTheme(!isNightTheme);
+  };
 
+  return (
+    <div className={`pw-app py-10 ${isNightTheme ? 'bg-dark-mode' : 'bg-white'}`}>
+      <div className='mininav pb-10'>
+        <MdSunny className={`w-10 h-10 ml-8 inline-block cursor-pointer ${isNightTheme ? 'hidden' : ''}`} onClick={toggleTheme} />
+        <MdNightlight className={`w-10 h-10 ml-8 inline-block cursor-pointer ${isNightTheme ? 'fill-white' : 'hidden'}`} onClick={toggleTheme} />
+        <MdGTranslate className={`w-10 h-10 ml-8 inline-block cursor-pointer ${isNightTheme ? 'fill-white' : 'fill-black'}`} />
+      </div>
+      <h1 className={`text-4xl text-center ${isNightTheme ? 'text-white' : 'text-black'}`}>Random Password Generator</h1>
       <div className="pw-field text-center m-10">
-        <h2 className="text-3xl">Password generated:</h2>
-        <h2 className="text-4xl font-bold pt-5">
+        <h2 className={`text-4xl text-center ${isNightTheme ? 'text-white' : 'text-black'}`}>Password generated:</h2>
+        <h2 className={`text-4xl text-center pt-5 font-bold ${isNightTheme ? 'text-white' : 'text-black'}`}>
           {generatedPassword}
           {generatedPassword && (
             <MdContentCopy className="w-10 h-10 ml-8 inline-block cursor-pointer" onClick={copyPassword} />
           )}
         </h2>
         {isCopied && (
-          <p className="text-lg text-cyan-400 mt-2">Password copied to clipboard!</p>
+          <p className={`text-lg mt-2 ${isNightTheme? 'text-gray-200' : 'text-cyan-400'}`}>Password copied to clipboard!</p>
         )}
       </div>
 
@@ -89,7 +99,7 @@ function App() {
             checked={includeNumbers}
             onChange={handleIncludeNumbersChange}
           />
-          <span className="pl-1 text-2xl">0-9</span>
+          <span className={`pl-1 text-2xl ${isNightTheme ? 'text-white' : 'text-black'}`}>0-9</span>
         </div>
         <div className="flex items-center justify-center">
           <input
@@ -98,7 +108,7 @@ function App() {
             checked={includeAlphabets}
             onChange={handleIncludeAlphabetsChange}
           />
-          <span className="pl-1 text-2xl">a-z</span>
+          <span className={`pl-1 text-2xl ${isNightTheme ? 'text-white' : 'text-black'}`}>a-z</span>
         </div>
         <div className="flex items-center justify-center">
           <input
@@ -107,7 +117,7 @@ function App() {
             checked={includeCapitalAlphabets}
             onChange={handleIncludeCapitalAlphabetsChange}
           />
-          <span className="pl-1 text-2xl">A-Z</span>
+          <span className={`pl-1 text-2xl ${isNightTheme ? 'text-white' : 'text-black'}`}>A-Z</span>
         </div>
         <div className="flex items-center justify-center">
           <input
@@ -116,12 +126,12 @@ function App() {
             checked={includeSpecialCharacter}
             onChange={handleSpecialCharacterChange}
           />
-          <span className="pl-1 text-2xl">Special Character</span>
+          <span className={`pl-1 text-2xl ${isNightTheme ? 'text-white' : 'text-black'}`}>Special Character</span>
         </div>
       </div>
 
       <div className="flex justify-center pt-5">
-        <span className="text-2xl">Password Length: {passwordLength}</span>
+        <span className={`text-2xl ${isNightTheme ? 'text-white' : 'text-black'}`}>Password Length: {passwordLength}</span>
       </div>
       <div className="flex items-center justify-center pt-5">
         <input
@@ -136,7 +146,10 @@ function App() {
       </div>
 
       <div className="flex justify-center pt-8">
-        <button className="px-6 py-3 bg-blue-500 text-white rounded-lg text-xl font-semibold" onClick={generatePassword}>
+        <button 
+          className={`px-6 py-3 hover:opacity-50 rounded-lg text-xl font-semibold ${isNightTheme ? 'bg-blue-200 text-black' : 'bg-blue-500 text-white'}`}
+          onClick={generatePassword}
+        >
           Generate Password
         </button>
       </div>
