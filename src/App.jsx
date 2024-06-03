@@ -97,12 +97,13 @@ function App() {
         <h2 className={`text-4xl text-center ${isNightTheme ? 'text-white' : 'text-black'}`}>{t("body.h2")}</h2>
         <h2 className={`text-4xl text-center pt-5 font-bold ${isNightTheme ? 'text-white' : 'text-black'}`}>
           {generatedPassword}
-          {generatedPassword && (
-            <MdContentCopy className="w-10 h-10 ml-8 inline-block cursor-pointer" onClick={copyPassword} />
-          )}
+          {generatedPassword ?
+            <MdContentCopy className="w-10 h-10 ml-8 inline-block cursor-pointer" onClick={copyPassword} />:
+            <h2 className={`text-3xl text-center font-light ${isNightTheme ? 'text-white' : 'text-black'}`}>{t("body.warningMessage")}</h2>
+          }
         </h2>
         {isCopied && (
-          <p className={`text-lg mt-2 ${isNightTheme? 'text-gray-200' : 'text-cyan-400'}`}>{t("body.copyMessage")}</p>
+          <p className={`text-lg mt-2 italic ${isNightTheme? 'text-gray-200' : 'text-cyan-400'}`}>{t("body.copyMessage")}</p>
         )}
       </div>
 

@@ -8,6 +8,7 @@
         "h3": "密碼長度: ",
         "copyMessage": "密碼已複製到剪貼簿!",
         "buttonMessage": "密碼生成",
-        "checkbox": "特殊字元"
+        "checkbox": "特殊字元",
+        "warningMessage": "請至少選擇一個選項"
     }
 }

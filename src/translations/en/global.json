@@ -8,6 +8,7 @@
         "h3": "Password Length: ",
         "copyMessage": "Password copied to clipboard!",
         "buttonMessage": "Generate Password",
-        "checkbox": "Special Character"
+        "checkbox": "Special Character",
+        "warningMessage": "Please select at least one option"
     }
 }
